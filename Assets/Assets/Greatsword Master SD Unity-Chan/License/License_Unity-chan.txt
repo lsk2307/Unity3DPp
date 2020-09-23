@@ -1,0 +1,7 @@
+< Greatsword Master SD Unity-Chan License > 
+
+The character model of this asset package is subject to the following licenses:
+
+Character license : http://unity-chan.com/contents/license_jp/
+
+*This license does not apply to motion data.
