@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public Slider slider;
     AudioSource audio;
 
+    public int puzzleCount;
+
     private void Awake()
     {
         if(SceneManager.GetActiveScene().buildIndex == 1)
@@ -82,5 +84,10 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("Volume", slider.value);
         setting.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    public void PuzzleFinish()
+    {
+
     }
 }

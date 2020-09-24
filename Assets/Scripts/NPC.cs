@@ -8,7 +8,7 @@ public class NPC : MonoBehaviour
     public GameObject[] uiIcon;
     public GameObject uiManager;
     public GameObject gameManager;
-
+    Light light;
 
     int questIndex = 0;
 
@@ -20,6 +20,7 @@ public class NPC : MonoBehaviour
     private void Awake()
     {
         uiM = uiManager.GetComponent<UIManager>();
+        light = GetComponent<Light>();
     }
 
     private void Update()
@@ -48,41 +49,15 @@ public class NPC : MonoBehaviour
 
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        //메세지 실행
-        if (other.tag == "Player" && Input.GetMouseButtonDown(0) && !uiM.texting)
-        {
-            switch (questIndex)
-            {
-                case 0:
-                    textS = new string[] { "저 앞에 몬스터를 잡아 주겠어?", "잘 부탁 드려요" }; 
-                    uiM.textOn(textS, this.gameObject, true);
-                    break;
-                case 1:
-                    textS = new string[] { "모든 몬스터는 세마리야, 잘 부탁해" };
-                    uiM.textOn(textS, this.gameObject, false);
-                    break;
-                case 2:
-                    textS = new string[] { "고마워 다른 곳으로 보내줄게" };
-                    uiM.textOn(textS, this.gameObject, false);
-                    nextStage = true;
-                    break;
-                case 3:
-                    break;
-            }
-        }
-    }
-
-
-    //public void NPC_Chat()
+    //private void OnTriggerStay(Collider other)
     //{
+    //    //메세지 실행
     //    if (other.tag == "Player" && Input.GetMouseButtonDown(0) && !uiM.texting)
     //    {
     //        switch (questIndex)
     //        {
     //            case 0:
-    //                textS = new string[] { "저 앞에 몬스터를 잡아 주겠어?", "잘 부탁 드려요" };
+    //                textS = new string[] { "저 앞에 몬스터를 잡아 주겠어?", "잘 부탁 드려요" }; 
     //                uiM.textOn(textS, this.gameObject, true);
     //                break;
     //            case 1:
@@ -100,6 +75,18 @@ public class NPC : MonoBehaviour
     //    }
     //}
 
+    private void OnTriggerEnter(Collider other)
+    {
+        light.enabled = true;
+        uiM.NPC_In(this.gameObject);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        light.enabled = false;
+        uiM.NPC_Out();
+    }
+
     //느낌표 -> 물음표
     public void IconChange()
     {
@@ -110,5 +97,30 @@ public class NPC : MonoBehaviour
     public void QuestIndexUp()
     {
         questIndex++;
+    }
+
+    public void MouseDown()
+    {
+        if (!uiM.texting)
+        {
+            switch (questIndex)
+            {
+                case 0:
+                    textS = new string[] { "저 앞에 몬스터를 잡아 주겠어?", "잘 부탁 드려요" };
+                    uiM.textOn(textS, true);
+                    break;
+                case 1:
+                    textS = new string[] { "모든 몬스터는 세마리야, 잘 부탁해" };
+                    uiM.textOn(textS, false);
+                    break;
+                case 2:
+                    textS = new string[] { "고마워 다른 곳으로 보내줄게" };
+                    uiM.textOn(textS, false);
+                    nextStage = true;
+                    break;
+                case 3:
+                    break;
+            }
+        }
     }
 }

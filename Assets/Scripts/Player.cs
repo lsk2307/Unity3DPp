@@ -11,10 +11,13 @@ public class Player : MonoBehaviour
     Weapon equipWeapon;
     UIManager uiManager;
     SkinnedMeshRenderer[] meshs;
+    AudioSource audio;
     public GameObject[] weapon;
     public GameObject dodgeEffect;
     public GameObject ui;
     public Image HpBar;
+    public AudioSource weaponSound;
+    public AudioSource getGoldSound;
 
     int weaponIndex = 0;
 
@@ -38,7 +41,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         meshs = GetComponentsInChildren<SkinnedMeshRenderer>();
-
+        audio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -121,8 +124,10 @@ public class Player : MonoBehaviour
             //공격중에도 사용가능하도록
             if (isAttack)
             {
-                StopCoroutine(doAttack());
                 isAttack = false;
+                StopCoroutine("doAttack");
+                weaponSound.Stop();
+                audio.Play();
                 anim.SetInteger("AttackCount", 0);
                 equipWeapon = weapon[weaponIndex].GetComponent<Weapon>();
                 equipWeapon.boxCollider.enabled = false;
@@ -199,7 +204,7 @@ public class Player : MonoBehaviour
 
 
             anim.SetTrigger("doAttack");
-            StartCoroutine(doAttack());
+            StartCoroutine("doAttack");
         }
     }
 
@@ -254,7 +259,7 @@ public class Player : MonoBehaviour
                  (anim.GetCurrentAnimatorStateInfo(0).IsName("5") && anim.GetInteger("AttackCount") != 3)) && !isAttacking && isAttack)
         {
             
-            StartCoroutine(doAttack());
+            StartCoroutine("doAttack");
         }
 
         //어택 종료
@@ -368,6 +373,7 @@ public class Player : MonoBehaviour
                 weapon[0].SetActive(true);
                 weaponIndex = 0;
                 uiManager.WeaponSwap();
+                speed *= 2;
             }
             else
             {
@@ -378,6 +384,7 @@ public class Player : MonoBehaviour
                 weapon[1].SetActive(true);
                 weaponIndex = 1;
                 uiManager.WeaponSwap();
+                speed *= 0.5f;
             }
         }
     }
@@ -419,7 +426,13 @@ public class Player : MonoBehaviour
             if(other.name == "Gold(Clone)")
             {
                 gold += 100;
-                Destroy(other.gameObject);
+                other.gameObject.layer = 14;
+                Rigidbody goldRG = other.GetComponent<Rigidbody>();
+                goldRG.AddForce(Vector3.up * 5, ForceMode.Impulse);
+                goldRG.AddTorque(Vector3.up, ForceMode.Impulse);
+                getGoldSound.Play();
+                Destroy(other.gameObject, 1);
+               
             }
         }
     }

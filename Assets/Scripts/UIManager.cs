@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour
     bool textBool;
     bool swap;
     public bool texting;
+    public bool npc;
 
     public int MonsterA_KillCount;
 
@@ -43,19 +45,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if(texting && messageIndex != messageIn.Length - 2 && text.text == messageIn[messageIndex] && Input.GetMouseButtonDown(0))
-        {
-            texting = false;
-            textBar.SetActive(false);
-            textIndex = 0;
-            text.text = "";
-            textButton.SetActive(false);
-
-            Player p = player.GetComponent<Player>();
-
-            p.PlayerStop(false);
-        }
-
+        
         
     }
 
@@ -81,11 +71,10 @@ public class UIManager : MonoBehaviour
     }
 
     //텍스트바 키기
-    public void textOn(string[] message, GameObject npcs, bool select)
+    public void textOn(string[] message, bool select)
     {
         Player p = player.GetComponent<Player>();
 
-        npcQ = npcs;
         textBool = select;
 
         p.PlayerStop(true);
@@ -148,4 +137,51 @@ public class UIManager : MonoBehaviour
 
         p.PlayerStop(false);
     }
+
+    public void TextEnd()
+    {
+        if (texting && messageIndex != messageIn.Length - 2 && text.text == messageIn[messageIndex])
+        {
+            texting = false;
+            textBar.SetActive(false);
+            textIndex = 0;
+            text.text = "";
+            textButton.SetActive(false);
+
+            Player p = player.GetComponent<Player>();
+
+            p.PlayerStop(false);
+        }
+    }
+
+    public void NPC_In(GameObject npcs)
+    {
+        npc = true;
+        npcQ = npcs;
+    }
+
+    public void NPC_Out()
+    {
+        npc = false;
+        npcQ = null;
+    }
+
+    public void NPC_Click()
+    {
+        if (!npc) return;
+
+        NPC npcS = npcQ.GetComponent<NPC>();
+        npcS.MouseDown();
+    }
+    public void GameEnd()
+    {
+        Application.Quit();
+    }
+
+    public void ReturnMain()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
+
 }
