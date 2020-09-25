@@ -8,9 +8,10 @@ public class NPC : MonoBehaviour
     public GameObject[] uiIcon;
     public GameObject uiManager;
     public GameObject gameManager;
-    Light light;
+    public Light light;
 
     int questIndex = 0;
+    public int npcNum;
 
     string[] textS;
     UIManager uiM;
@@ -20,7 +21,6 @@ public class NPC : MonoBehaviour
     private void Awake()
     {
         uiM = uiManager.GetComponent<UIManager>();
-        light = GetComponent<Light>();
     }
 
     private void Update()
@@ -33,20 +33,28 @@ public class NPC : MonoBehaviour
             ui.transform.LookAt(Camera.main.transform.position - v);
         }
 
-        if(questIndex == 1 && uiM.MonsterA_KillCount >= 3)
+        switch (npcNum)
         {
-            questIndex = 2;
-            Image uit = uiIcon[1].GetComponent<Image>();
-            uit.color = new Color32(255, 217, 0, 255);
+            case 0:
+                if (questIndex == 1 && uiM.MonsterA_KillCount >= 3)
+                {
+                    questIndex = 2;
+                    Image uit = uiIcon[1].GetComponent<Image>();
+                    uit.color = new Color32(255, 217, 0, 255);
+                }
+
+                if (nextStage && !uiM.texting)
+                {
+                    GameManager gm = gameManager.GetComponent<GameManager>();
+
+                    gm.SceneChange(true, 2);
+                }
+
+                break;
+            case 1:
+                break;
         }
-
-        if(nextStage && !uiM.texting)
-        {
-            GameManager gm = gameManager.GetComponent<GameManager>();
-
-            gm.SceneChange(true, 2);
-        }
-
+       
     }
 
     //private void OnTriggerStay(Collider other)
@@ -103,23 +111,28 @@ public class NPC : MonoBehaviour
     {
         if (!uiM.texting)
         {
+            if(npcNum == 0)
             switch (questIndex)
             {
                 case 0:
                     textS = new string[] { "저 앞에 몬스터를 잡아 주겠어?", "잘 부탁 드려요" };
-                    uiM.textOn(textS, true);
+                    uiM.textOn(textS, true, false);
                     break;
                 case 1:
                     textS = new string[] { "모든 몬스터는 세마리야, 잘 부탁해" };
-                    uiM.textOn(textS, false);
+                    uiM.textOn(textS, false, false);
                     break;
                 case 2:
                     textS = new string[] { "고마워 다른 곳으로 보내줄게" };
-                    uiM.textOn(textS, false);
+                    uiM.textOn(textS, false, false);
                     nextStage = true;
                     break;
-                case 3:
-                    break;
+            }
+
+            if(npcNum == 1)
+            {
+                textS = new string[] { "이 앞은 보스가 기다리고 있어요", "물약을 든든히 준비해서 가세요" };
+                uiM.textOn(textS, false, true);
             }
         }
     }

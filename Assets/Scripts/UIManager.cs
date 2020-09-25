@@ -17,13 +17,19 @@ public class UIManager : MonoBehaviour
     public GameObject textBar;
     public GameObject player;
     public GameObject textButton;
+    public GameObject startUI;
+    public GameObject shopUI;
     GameObject npcQ;
+
+    public Text goldText;
+    public Text potionCount;
 
     Text text;
     string[] messageIn;
     int textIndex = 0;
     int messageIndex = 0;
 
+    bool shopping;
     bool textBool;
     bool swap;
     public bool texting;
@@ -41,12 +47,9 @@ public class UIManager : MonoBehaviour
 
         text = textBar.GetComponentInChildren<Text>();
         text.text = "";
-    }
 
-    private void Update()
-    {
-        
-        
+        if(startUI.activeSelf == true)
+        Time.timeScale = 0;
     }
 
     //무기 스왑 UI
@@ -71,11 +74,12 @@ public class UIManager : MonoBehaviour
     }
 
     //텍스트바 키기
-    public void textOn(string[] message, bool select)
+    public void textOn(string[] message, bool select, bool shop)
     {
         Player p = player.GetComponent<Player>();
 
         textBool = select;
+        shopping = shop;
 
         p.PlayerStop(true);
 
@@ -140,7 +144,7 @@ public class UIManager : MonoBehaviour
 
     public void TextEnd()
     {
-        if (texting && messageIndex != messageIn.Length - 2 && text.text == messageIn[messageIndex])
+        if (texting && messageIndex != messageIn.Length - 2 && text.text == messageIn[messageIndex] && !shopping)
         {
             texting = false;
             textBar.SetActive(false);
@@ -151,7 +155,75 @@ public class UIManager : MonoBehaviour
             Player p = player.GetComponent<Player>();
 
             p.PlayerStop(false);
+           
         }
+        else if (texting && text.text == messageIn[messageIndex] && shopping)
+        {
+            if(messageIndex == messageIn.Length - 1)
+            {
+                texting = false;
+                textBar.SetActive(false);
+                textIndex = 0;
+                text.text = "";
+
+                ShopOn();
+            }
+            else
+            {
+                textIndex = 0;
+                text.text = "";
+                messageIndex++;
+
+                Invoke("Texting", 0.05f);
+            }
+        }
+    }
+
+    void ShopOn()
+    {
+        shopUI.SetActive(true);
+    }
+
+    public void ShopOff()
+    {
+        shopUI.SetActive(false);
+
+        Player p = player.GetComponent<Player>();
+
+        p.PlayerStop(false);
+    }
+
+    public void Buy()
+    {
+        Player p = player.GetComponent<Player>();
+
+        if (p.gold >= 100)
+        {
+            p.gold -= 100;
+            p.potion += 1;
+            GetGold();
+
+            SetPotion();
+        }
+    }
+
+    public void UsePotion()
+    {
+        Player p = player.GetComponent<Player>();
+
+        if (p.potion > 0 && p.currentHp < p.hpMax)
+        {
+            p.potion -= 1;
+            p.currentHp += 50;
+            p.HPCheck();
+            SetPotion();
+        }
+    }
+
+    public void SetPotion()
+    {
+        Player p = player.GetComponent<Player>();
+        potionCount.text = p.potion.ToString();
     }
 
     public void NPC_In(GameObject npcs)
@@ -184,4 +256,15 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void StartUIFalse()
+    {
+        startUI.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void GetGold()
+    {
+        Player p = player.GetComponent<Player>();
+        goldText.text = p.gold + "G";
+    }
 }

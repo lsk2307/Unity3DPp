@@ -13,6 +13,7 @@ public class Puzzle : MonoBehaviour
     public bool on = false;
 
     GameManager gameManager;
+    AudioSource buttonSound;
 
     public bool puzzleEnd;
 
@@ -23,12 +24,15 @@ public class Puzzle : MonoBehaviour
     {
         colorThis = GetComponent<MeshRenderer>().material;
         gameManager = gameM.GetComponent<GameManager>();
+        buttonSound = GetComponent<AudioSource>();
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
         if (puzzleEnd) return;
+
+        buttonSound.Play();
 
         for (int i = 0; i < puzzle.Length; ++i)
         {

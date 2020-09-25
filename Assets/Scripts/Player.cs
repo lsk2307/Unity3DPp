@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     public Image HpBar;
     public AudioSource weaponSound;
     public AudioSource getGoldSound;
+    public AudioSource attackingSound;
+    public AudioSource damagedSound;
 
     int weaponIndex = 0;
 
@@ -26,6 +28,7 @@ public class Player : MonoBehaviour
     public int hpMax;
     public int currentHp;
     public int gold;
+    public int potion;
     public int atk = 5;
 
     bool allStop;
@@ -42,6 +45,8 @@ public class Player : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         meshs = GetComponentsInChildren<SkinnedMeshRenderer>();
         audio = GetComponent<AudioSource>();
+
+        uiManager = ui.GetComponent<UIManager>();
     }
 
     void Update()
@@ -73,6 +78,11 @@ public class Player : MonoBehaviour
             anim.SetTrigger("endAttack");
             isAttack = false;
             anim.SetBool("doMove", false);
+        }
+
+        if(currentHp > hpMax)
+        {
+            currentHp = hpMax;
         }
     }
 
@@ -133,7 +143,7 @@ public class Player : MonoBehaviour
                 equipWeapon.boxCollider.enabled = false;
             }
 
-            rigid.AddForce(Vector3.up * 10, ForceMode.Impulse);
+            rigid.AddForce(Vector3.up * 2, ForceMode.Impulse);
             StartCoroutine(doDodge());
             
         }
@@ -281,6 +291,7 @@ public class Player : MonoBehaviour
 
     IEnumerator doAttack()
     {
+        attackingSound.Play();
         isAttacking = true;
         equipWeapon = weapon[weaponIndex].GetComponent<Weapon>();
         if (anim.GetInteger("AttackCount") == 0)
@@ -361,7 +372,6 @@ public class Player : MonoBehaviour
         }
         */
 
-        uiManager = ui.GetComponent<UIManager>();
         if (!isAttack && !isDodge)
         {
             if (weaponIndex == 1)
@@ -431,6 +441,7 @@ public class Player : MonoBehaviour
                 goldRG.AddForce(Vector3.up * 5, ForceMode.Impulse);
                 goldRG.AddTorque(Vector3.up, ForceMode.Impulse);
                 getGoldSound.Play();
+                uiManager.GetGold();
                 Destroy(other.gameObject, 1);
                
             }
@@ -440,8 +451,9 @@ public class Player : MonoBehaviour
     IEnumerator OnDamage()
     {
         isDamage = true;
+        damagedSound.Play();
         rigid.AddRelativeForce(Vector3.back * 10, ForceMode.Impulse);
-        rigid.AddForce(Vector3.up * 10, ForceMode.Impulse);
+        rigid.AddForce(Vector3.up * 2, ForceMode.Impulse);
         foreach (SkinnedMeshRenderer mesh in meshs)
         {
             mesh.material.color = new Color32(200, 0, 0, 50);
@@ -461,6 +473,11 @@ public class Player : MonoBehaviour
     public void PlayerStop(bool stop)
     {
         allStop = stop;
+    }
+
+    public void HPCheck()
+    {
+        HpBar.fillAmount = (float)currentHp / hpMax;
     }
    
 }
