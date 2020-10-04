@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -210,6 +211,8 @@ public class UIManager : MonoBehaviour
     public void UsePotion()
     {
         Player p = player.GetComponent<Player>();
+
+        if (p.allStop) return;
 
         if (p.potion > 0 && p.currentHp < p.hpMax)
         {

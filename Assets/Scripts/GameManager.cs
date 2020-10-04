@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject portal;
     public Slider slider;
     public UIManager uiM;
+    public AudioClip[] audioClips;
+
     AudioSource audio;
 
     public int puzzleCount;
@@ -95,6 +97,9 @@ public class GameManager : MonoBehaviour
 
     public void SoundSettingIn()
     {
+        Player p = player.GetComponent<Player>();
+        if (p.allStop) return;
+
         Time.timeScale = 0;
         setting.SetActive(true);
         slider.value = audio.volume;
@@ -115,5 +120,11 @@ public class GameManager : MonoBehaviour
     public void PuzzleFinish()
     {
         portal.SetActive(true);
+    }
+
+    public void AudioSourceChange(int index)
+    {
+        audio.clip = audioClips[index];
+        audio.Play();
     }
 }

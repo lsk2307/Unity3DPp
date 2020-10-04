@@ -15,11 +15,13 @@ public class Player : MonoBehaviour
     public GameObject[] weapon;
     public GameObject dodgeEffect;
     public GameObject ui;
+    public GameObject gameOverUI;
     public Image HpBar;
     public AudioSource weaponSound;
     public AudioSource getGoldSound;
     public AudioSource attackingSound;
     public AudioSource damagedSound;
+
 
     int weaponIndex = 0;
 
@@ -31,7 +33,7 @@ public class Player : MonoBehaviour
     public int potion;
     public int atk = 5;
 
-    bool allStop;
+    public bool allStop;
     bool isDodge;
     public bool isAttack;
     bool isAttacking;
@@ -88,6 +90,8 @@ public class Player : MonoBehaviour
 
     public void JoyMove(Vector3 angle)
     {
+        if (allStop) return;
+
         transform.eulerAngles = angle;
 
         if(!isAttack && !isBorder)
@@ -129,6 +133,8 @@ public class Player : MonoBehaviour
 
     public void Dodge()
     {
+        if (allStop) return;
+
         if (!isDodge)
         {
             //공격중에도 사용가능하도록
@@ -372,7 +378,7 @@ public class Player : MonoBehaviour
         }
         */
 
-        if (!isAttack && !isDodge)
+        if (!isAttack && !isDodge && !allStop)
         {
             if (weaponIndex == 1)
             {
@@ -422,7 +428,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //공격 받은 것 처리
-        if(other.tag == "EnemyAttack" && !isDamage && !isDodge)
+        if(other.tag == "EnemyAttack" && !isDamage && !isDodge && !allStop)
         {
             Attack attack = other.GetComponent<Attack>();
             currentHp -= attack.damage;
@@ -448,8 +454,25 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Damaging(int damage)
+    {
+        if (!isDamage && !isDodge && !allStop)
+        {
+            currentHp -= damage;
+            HpBar.fillAmount = (float)currentHp / hpMax;
+            StartCoroutine(OnDamage());
+        }
+    }
+
     IEnumerator OnDamage()
     {
+
+        if(currentHp <= 0)
+        {
+            PlayerStop(true);
+            anim.SetTrigger("doDie");
+        }
+
         isDamage = true;
         damagedSound.Play();
         rigid.AddRelativeForce(Vector3.back * 10, ForceMode.Impulse);
@@ -459,7 +482,6 @@ public class Player : MonoBehaviour
             mesh.material.color = new Color32(200, 0, 0, 50);
         }
 
-
         yield return new WaitForSeconds(1f);
 
         foreach (SkinnedMeshRenderer mesh in meshs)
@@ -467,6 +489,14 @@ public class Player : MonoBehaviour
             mesh.material.color = new Color32(195,195,195,255);
         }
         isDamage = false;
+
+
+
+        if (currentHp <= 0)
+        {
+            gameOverUI.SetActive(true);
+            StopAllCoroutines();
+        }
     }
 
     //플레이어 정지 불값

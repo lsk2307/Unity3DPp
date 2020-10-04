@@ -1,83 +1,233 @@
 fileFormatVersion: 2
 guid: 4d11f55a21293bb458eb0ea6b5c90deb
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: ahoge
-    100002: body
-    100004: chest
-    100006: earphone
-    100008: face
-    100010: hair
-    100012: hair_top
-    100014: head
-    100016: hip
-    100018: L_arm
-    100020: L_foot
-    100022: L_hand
-    100024: L_leg
-    100026: L_upperarm
-    100028: L_upperleg
-    100030: leg
-    100032: magatama
-    100034: R_arm
-    100036: R_foot
-    100038: R_hand
-    100040: R_leg
-    100042: R_upperarm
-    100044: R_upperleg
-    100046: SD_QUERY_06
-    100048: //RootNode
-    100050: SD_QUERY_06_Reference
-    100052: shimenawa
-    100054: spine
-    400000: ahoge
-    400002: body
-    400004: chest
-    400006: earphone
-    400008: face
-    400010: hair
-    400012: hair_top
-    400014: head
-    400016: hip
-    400018: L_arm
-    400020: L_foot
-    400022: L_hand
-    400024: L_leg
-    400026: L_upperarm
-    400028: L_upperleg
-    400030: leg
-    400032: magatama
-    400034: R_arm
-    400036: R_foot
-    400038: R_hand
-    400040: R_leg
-    400042: R_upperarm
-    400044: R_upperleg
-    400046: //RootNode
-    400048: SD_QUERY_06
-    400050: SD_QUERY_06_Reference
-    400052: shimenawa
-    400054: spine
-    4300000: magatama
-    4300002: shimenawa
-    4300004: body
-    4300006: face
-    4300008: earphone
-    4300010: hair_top
-    4300012: hair
-    4300014: leg
-    7400000: Take 001
-    9500000: //RootNode
-    13700000: body
-    13700002: earphone
-    13700004: face
-    13700006: hair
-    13700008: hair_top
-    13700010: leg
-    13700012: magatama
-    13700014: shimenawa
-    2186277476908879412: ImportLogs
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: ahoge
+  - first:
+      1: 100002
+    second: body
+  - first:
+      1: 100004
+    second: chest
+  - first:
+      1: 100006
+    second: earphone
+  - first:
+      1: 100008
+    second: face
+  - first:
+      1: 100010
+    second: hair
+  - first:
+      1: 100012
+    second: hair_top
+  - first:
+      1: 100014
+    second: head
+  - first:
+      1: 100016
+    second: hip
+  - first:
+      1: 100018
+    second: L_arm
+  - first:
+      1: 100020
+    second: L_foot
+  - first:
+      1: 100022
+    second: L_hand
+  - first:
+      1: 100024
+    second: L_leg
+  - first:
+      1: 100026
+    second: L_upperarm
+  - first:
+      1: 100028
+    second: L_upperleg
+  - first:
+      1: 100030
+    second: leg
+  - first:
+      1: 100032
+    second: magatama
+  - first:
+      1: 100034
+    second: R_arm
+  - first:
+      1: 100036
+    second: R_foot
+  - first:
+      1: 100038
+    second: R_hand
+  - first:
+      1: 100040
+    second: R_leg
+  - first:
+      1: 100042
+    second: R_upperarm
+  - first:
+      1: 100044
+    second: R_upperleg
+  - first:
+      1: 100046
+    second: SD_QUERY_06
+  - first:
+      1: 100048
+    second: //RootNode
+  - first:
+      1: 100050
+    second: SD_QUERY_06_Reference
+  - first:
+      1: 100052
+    second: shimenawa
+  - first:
+      1: 100054
+    second: spine
+  - first:
+      4: 400000
+    second: ahoge
+  - first:
+      4: 400002
+    second: body
+  - first:
+      4: 400004
+    second: chest
+  - first:
+      4: 400006
+    second: earphone
+  - first:
+      4: 400008
+    second: face
+  - first:
+      4: 400010
+    second: hair
+  - first:
+      4: 400012
+    second: hair_top
+  - first:
+      4: 400014
+    second: head
+  - first:
+      4: 400016
+    second: hip
+  - first:
+      4: 400018
+    second: L_arm
+  - first:
+      4: 400020
+    second: L_foot
+  - first:
+      4: 400022
+    second: L_hand
+  - first:
+      4: 400024
+    second: L_leg
+  - first:
+      4: 400026
+    second: L_upperarm
+  - first:
+      4: 400028
+    second: L_upperleg
+  - first:
+      4: 400030
+    second: leg
+  - first:
+      4: 400032
+    second: magatama
+  - first:
+      4: 400034
+    second: R_arm
+  - first:
+      4: 400036
+    second: R_foot
+  - first:
+      4: 400038
+    second: R_hand
+  - first:
+      4: 400040
+    second: R_leg
+  - first:
+      4: 400042
+    second: R_upperarm
+  - first:
+      4: 400044
+    second: R_upperleg
+  - first:
+      4: 400046
+    second: //RootNode
+  - first:
+      4: 400048
+    second: SD_QUERY_06
+  - first:
+      4: 400050
+    second: SD_QUERY_06_Reference
+  - first:
+      4: 400052
+    second: shimenawa
+  - first:
+      4: 400054
+    second: spine
+  - first:
+      43: 4300000
+    second: magatama
+  - first:
+      43: 4300002
+    second: shimenawa
+  - first:
+      43: 4300004
+    second: body
+  - first:
+      43: 4300006
+    second: face
+  - first:
+      43: 4300008
+    second: earphone
+  - first:
+      43: 4300010
+    second: hair_top
+  - first:
+      43: 4300012
+    second: hair
+  - first:
+      43: 4300014
+    second: leg
+  - first:
+      74: 7400000
+    second: Take 001
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: body
+  - first:
+      137: 13700002
+    second: earphone
+  - first:
+      137: 13700004
+    second: face
+  - first:
+      137: 13700006
+    second: hair
+  - first:
+      137: 13700008
+    second: hair_top
+  - first:
+      137: 13700010
+    second: leg
+  - first:
+      137: 13700012
+    second: magatama
+  - first:
+      137: 13700014
+    second: shimenawa
+  - first:
+      41386430: 2186277476908879412
+    second: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -95,7 +245,7 @@ ModelImporter:
       name: Tex_Face
     second: {fileID: 2100000, guid: 8cf12733e46df244aa27ea6937ecc5f1, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 0
@@ -109,8 +259,8 @@ ModelImporter:
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
-      improve retargeting quality.\n\t'spine' has translation animation that will
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'spine' has translation animation that will
       be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
@@ -130,34 +280,41 @@ ModelImporter:
     globalScale: 0.1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
     importLights: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 0
-    previousCalculatedGlobalScale: 0.1
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 4
     normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human:
     - boneName: hip
       humanName: Hips
@@ -443,14 +600,16 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 0.1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
